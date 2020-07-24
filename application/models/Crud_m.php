@@ -19,4 +19,10 @@ class Crud_m extends CI_Model
 		return $this->db->affected_rows();
 	}
 
+	public function listRequestSaldo()
+	{
+
+		return $this->db->query("SELECT * FROM request_saldo INNER JOIN user ON request_saldo.email=user.email WHERE is_done NOT IN ('Y')");
+	}
+
 }

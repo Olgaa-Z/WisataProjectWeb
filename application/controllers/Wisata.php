@@ -8,7 +8,7 @@ class Wisata extends CI_Controller {
 
 
 	function addWisata(){
-		$namaWisata = $this->input->post('nama_wisata');
+		$namaWisata = $this->input->post('namawisata');
 		$deskripsi = $this->input->post('deskripsi');
 		$alamat = $this->input->post('alamat');
 		$latitude = $this->input->post('latitude');

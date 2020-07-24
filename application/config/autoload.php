@@ -132,6 +132,15 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(
+// $autoload['model'] = array('Berita_m','Login_m','Apiservice_m','Crud_m');
+
+$autoload['model'] = array('Apiservice_m',
 	"Login_m" => 'login',
+	"Apiservice_m" => 'apiservice',
 	"Crud_m" => 'crud');
+
+// $autoload['model'] = array(
+// 	"Login_m" => 'login',
+// 	"Crud_m" => 'crud'),
+// 	// "Apiservice_m" => 'apiservice';
+// 	"Apiservice_m" => 'apiservice';

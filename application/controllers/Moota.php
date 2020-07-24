@@ -20,6 +20,19 @@ class Moota extends CI_Controller {
 		curl_exec($ch);
 	}
 
+	// function saldo($key){
+	// 	$ch = curl_init();
+	// 	$headers = [
+	// 		"Accept: application/json",
+ //    		"Authorization: Bearer FSSnC6UKtwXtrzgDf8nozC8pHhYZfluoYHrt3v4ixdQuZBBRo5"
+	// 	];
+
+	// 	curl_setopt($ch, CURLOPT_URL, "http://103.28.59.187/api/moota");
+	// 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+	// 	curl_exec($ch);
+	// }
+
 	function mutasi($key, $bankid, $count){
 		$ch = curl_init();
 		$headers = [
@@ -155,6 +168,53 @@ class Moota extends CI_Controller {
 				echo json_encode(['message' => "something wrong!", 'code' => 500 ]);
 			}
 	}
+
+
+	function requestSaldo(){
+		date_default_timezone_set("Asia/Jakarta");
+		$email = $this->input->post("email");
+		$kodeUnik = $this->input->post("kode-unik");
+		$nominal = $this->input->post("nominal");
+
+		$dataInsert = [
+			'email' => $email,
+			'kode_unik' => $kodeUnik,
+			'nominal' => $nominal,
+		];
+
+		$res = $this->crud->insert("request_saldo", $dataInsert);
+		if($res > 0){
+			echo json_encode(['message' => "Berhasil", "code" => "200"]);
+		}else{
+			echo json_encode(['message' => "Terjadi Kesalahan", "code" => "404"]);
+		}
+	}
+
+//admin ngelist saldo untuk user
+	function getListSaldoRequest(){
+		$data['data'] = [];
+		$query = $this->crud->listRequestSaldo();
+		foreach ($query->result() as $r) {
+			$tmp = [];
+			$tmp['email'] = $r->email;
+			$tmp['nama'] = $r->nama;
+			$tmp['nominal'] = $r->nominal;
+			$tmp['kode_unik'] = $r->kode_unik;
+			$tmp['tanggal'] = $r->request_timestamp;
+
+			array_push($data['data'], $tmp);
+
+		}
+
+		if(!empty($data['data'])){
+			$data['message'] = "data ditemukan";
+			$data['code'] = 200;
+			echo json_encode($data);
+		}else{
+			echo json_encode(['message' => 'tidak ada data', 'code' => "404"]);
+		}
+	}
+
 }
 
 ?>
